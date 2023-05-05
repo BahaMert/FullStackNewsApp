@@ -17,7 +17,7 @@ public interface ArticleRepository extends MongoRepository<Article, String>{
 
 	public List<Article> findAll();
 	public List<Article> findByCategory(Category category);
-	public Article findByTitleContainsIgnoreCase(String title);
+	public List<Article> findByTitleContainsIgnoreCase(String title);
 	public List<Article> findByAuthor(Author author);
 	public List<Article> findByYear(int year);
 	public List<Article> findAllByAuthorId(String authorId);

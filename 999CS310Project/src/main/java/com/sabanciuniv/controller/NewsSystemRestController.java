@@ -80,11 +80,11 @@ public class NewsSystemRestController {
 			
 			
 			
-			Article art1 = new Article("Article 1", 2022, 5.0f, 6, "Article 1 content" , categories.get(0), comments.subList(0, 1), authors.get(0) );
-			Article art2 = new Article("Article 2", 1999, 2.5f, 8, "Article 2 content" , categories.get(1), comments.subList(0, 2), authors.get(1));
-			Article art3 = new Article("Article 3", 2000, 3.4f, 10,"Article 3 content" , categories.get(2), comments.subList(1, 2), authors.get(2));
-			Article art4 = new Article("Article 4", 2020, 4.5f, 12,  "Article 4 content" , categories.get(0) , comments.subList(0, 1), authors.get(0));
-			Article art5 = new Article("Article 5", 2022, 3.9f, 3, "Article 5 content" , categories.get(2), comments.subList(1, 1), authors.get(1));
+			Article art1 = new Article("Article 1", 2022, 5.0f, 6, "Article 1 content" , categories.get(0), comments.subList(0, 1), authors.get(0), "url 1" );
+			Article art2 = new Article("Article 2", 1999, 2.5f, 8, "Article 2 content" , categories.get(1), comments.subList(0, 2), authors.get(1), "url 2");
+			Article art3 = new Article("Article 3", 2000, 3.4f, 10,"Article 3 content" , categories.get(2), comments.subList(1, 2), authors.get(2), "url 3");
+			Article art4 = new Article("Article 4", 2020, 4.5f, 12,  "Article 4 content" , categories.get(0) , comments.subList(0, 1), authors.get(0), "url 4");
+			Article art5 = new Article("Article 5", 2022, 3.9f, 3, "Article 5 content" , categories.get(2), comments.subList(1, 1), authors.get(1), "url 5");
 			
 			articleRepository.save(art1);
 			articleRepository.save(art2);
@@ -136,6 +136,13 @@ public class NewsSystemRestController {
 	public List<Article> searchArticlesCategory(@RequestBody ArticlePayload payload){
 		
 		List<Article> articles = articleRepository.findAllByCategoryId(payload.getCategoryid());	
+		return articles;
+	}
+	
+	@GetMapping("/articles/search/name")
+	public List<Article> searchArticlesName(@RequestBody ArticlePayload payload){
+		
+		List<Article> articles = articleRepository.findByTitleContainsIgnoreCase(payload.getContent());	
 		return articles;
 	}
 	

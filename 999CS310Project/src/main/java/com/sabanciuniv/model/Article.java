@@ -18,6 +18,7 @@ public class Article {
 	private float rating;
 	private int people_rated;
 	private String content;
+
 	
 	@DBRef
 	private Category category;
@@ -29,7 +30,8 @@ public class Article {
 	@DBRef
 	private Author author;
 	
-
+	private String image_url;
+	
 	public Article() {
 		// TODO Auto-generated constructor stub
 	}
@@ -38,8 +40,10 @@ public class Article {
 
 
 
-	public Article(String title, int year, float rating, int people_rated, String content, Category category,
-			List<Comment> comments, Author author) {
+
+
+	public Article(String title, int year, float rating, int people_rated, String content,
+			Category category, List<Comment> comments, Author author, String image_url) {
 		super();
 		this.title = title;
 		this.year = year;
@@ -49,7 +53,10 @@ public class Article {
 		this.category = category;
 		this.comments = comments;
 		this.author = author;
+		this.image_url = image_url;
 	}
+
+
 
 
 
@@ -63,9 +70,13 @@ public class Article {
 
 
 
+
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
+
 
 
 
@@ -79,9 +90,13 @@ public class Article {
 
 
 
+
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
+
 
 
 
@@ -95,9 +110,13 @@ public class Article {
 
 
 
+
+
 	public void setYear(int year) {
 		this.year = year;
 	}
+
+
 
 
 
@@ -111,9 +130,13 @@ public class Article {
 
 
 
+
+
 	public void setRating(float rating) {
 		this.rating = rating;
 	}
+
+
 
 
 
@@ -127,9 +150,13 @@ public class Article {
 
 
 
+
+
 	public void setPeople_rated(int people_rated) {
 		this.people_rated = people_rated;
 	}
+
+
 
 
 
@@ -143,9 +170,33 @@ public class Article {
 
 
 
+
+
 	public void setContent(String content) {
 		this.content = content;
 	}
+
+
+
+
+
+
+
+	public String getImage_url() {
+		return image_url;
+	}
+
+
+
+
+
+
+
+	public void setImage_url(String image_url) {
+		this.image_url = image_url;
+	}
+
+
 
 
 
@@ -159,9 +210,13 @@ public class Article {
 
 
 
+
+
 	public void setCategory(Category category) {
 		this.category = category;
 	}
+
+
 
 
 
@@ -175,9 +230,13 @@ public class Article {
 
 
 
+
+
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
 	}
+
+
 
 
 
@@ -191,10 +250,11 @@ public class Article {
 
 
 
+
+
 	public void setAuthor(Author author) {
 		this.author = author;
 	}
-
 
 
 
