@@ -79,12 +79,13 @@ public class NewsSystemRestController {
 			List<Comment> comments = commentRepository.findAll();
 			
 			
-			
-			Article art1 = new Article("Article 1", 2022, 5.0f, 6, "Article 1 content" , categories.get(0), comments.subList(0, 1), authors.get(0), "url 1" );
-			Article art2 = new Article("Article 2", 1999, 2.5f, 8, "Article 2 content" , categories.get(1), comments.subList(0, 2), authors.get(1), "url 2");
-			Article art3 = new Article("Article 3", 2000, 3.4f, 10,"Article 3 content" , categories.get(2), comments.subList(1, 2), authors.get(2), "url 3");
-			Article art4 = new Article("Article 4", 2020, 4.5f, 12,  "Article 4 content" , categories.get(0) , comments.subList(0, 1), authors.get(0), "url 4");
-			Article art5 = new Article("Article 5", 2022, 3.9f, 3, "Article 5 content" , categories.get(2), comments.subList(1, 1), authors.get(1), "url 5");
+			String dummy_url = "https://www.hdwallpaper.nu/wp-content/uploads/2015/02/Funny-Cat-Hidden.jpg";
+
+			Article art1 = new Article("Article 1", 2022, 5.0f, 6, "Article 1 content" , categories.get(0), comments.subList(0, 1), authors.get(0), dummy_url );
+			Article art2 = new Article("Article 2", 1999, 2.5f, 8, "Article 2 content" , categories.get(1), comments.subList(0, 2), authors.get(1), dummy_url);
+			Article art3 = new Article("Article 3", 2000, 3.4f, 10,"Article 3 content" , categories.get(2), comments.subList(1, 2), authors.get(2), dummy_url);
+			Article art4 = new Article("Article 4", 2020, 4.5f, 12,  "Article 4 content" , categories.get(0) , comments.subList(0, 1), authors.get(0), dummy_url);
+			Article art5 = new Article("Article 5", 2022, 3.9f, 3, "Article 5 content" , categories.get(2), comments.subList(1, 1), authors.get(1), dummy_url);
 			
 			articleRepository.save(art1);
 			articleRepository.save(art2);
