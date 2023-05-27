@@ -1,0 +1,9 @@
+com/sabanciuniv/repo/BookRepository.class
+com/sabanciuniv/model/Book.class
+com/sabanciuniv/model/Publisher.class
+com/sabanciuniv/repo/AuthorRepository.class
+com/sabanciuniv/repo/PublisherRepo.class
+com/sabanciuniv/model/BookPayload.class
+com/sabanciuniv/controller/BookStoreRestController.class
+com/sabanciuniv/BookStoreApplication.class
+com/sabanciuniv/model/Author.class
