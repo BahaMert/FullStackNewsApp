@@ -24,17 +24,18 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements CategoryAdapter.CategoryClickInterface {
 
     RecyclerView recViewCat;
     RecyclerView recViewArt;
     ProgressBar prg;
+    NewsMainRepository repo;
 
     Handler catHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
             List<CategoryModel> data = (List<CategoryModel>) msg.obj;
-            CategoryAdapter adp = new CategoryAdapter(MainActivity.this, data);
+            CategoryAdapter adp = new CategoryAdapter(MainActivity.this, data, MainActivity.this::onCategoryClick );
             recViewCat.setAdapter(adp);
             //prg.setVisibility(View.INVISIBLE);
             return true;
@@ -54,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         prg = findViewById(R.id.idProgressBar);
@@ -62,8 +64,7 @@ public class MainActivity extends AppCompatActivity {
         recViewArt = findViewById(R.id.idArticlesRecyclerView);
         //suanlik bunu boyle biraktim cunku layout kisminda ayarlamistim belki acabilirm geri
         recViewArt.setLayoutManager(new LinearLayoutManager(this));
-
-        NewsMainRepository repo = new NewsMainRepository();
+        repo = new NewsMainRepository();
         repo.get_all_categories(((NewsApplication)getApplication()).srv,catHandler);
         repo.get_all_articles(((NewsApplication)getApplication()).srv,artHandler);
 
@@ -71,4 +72,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onCategoryClick(int position) {
+        prg.setVisibility(View.VISIBLE);
+        repo.get_all_articles(((NewsApplication)getApplication()).srv,artHandler);
+    }
 }

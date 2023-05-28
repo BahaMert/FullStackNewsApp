@@ -18,10 +18,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     Context context;
     List<CategoryModel> data;
+    CategoryClickInterface categoryClickInterface;
 
-    public CategoryAdapter(Context context, List<CategoryModel> data) {
+    public CategoryAdapter(Context context, List<CategoryModel> data, CategoryClickInterface categoryClickInterface) {
         this.context = context;
         this.data = data;
+        this.categoryClickInterface = categoryClickInterface;
     }
 
     @NonNull
@@ -41,7 +43,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
     public void onBindViewHolder(@NonNull CategoryViewHolder holder, int position) {
         holder.txtName.setText(data.get(position).getName());
         //eger sorun olursa categoryviewholderdan da id yi cikar yada buradan almak gerekbilir id yi bakalim
-
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                categoryClickInterface.onCategoryClick(position);
+            }
+        });
     }
 
     @Override
@@ -49,6 +56,9 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
         return data.size();
     }
 
+    public interface CategoryClickInterface{
+        void onCategoryClick(int position);
+    }
     class CategoryViewHolder extends RecyclerView.ViewHolder{
 
         ConstraintLayout row;
@@ -61,4 +71,6 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
         }
     }
+
+
 }
