@@ -7,7 +7,8 @@
     app:cardBackgroundColor="@color/grey_light"
     android:clickable="true"
     android:id="@+id/idNews_Column_list"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="?android:selectableItemBackground">
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -172,6 +172,18 @@ public class NewsSystemRestController {
 	    //return commentIds;
 	}
 
+	@PostMapping("/articles/getbyid")
+	public Article getArticleById(@RequestBody ArticlePayload payload){
+		
+	    Article article = articleRepository.findArticleById(payload.getArticleid());
+	    
+	    
+	    return article;
+	    //List<String> commentIds = articleRepository.findCommentIdsByArticleId(article.getId());
+	    //logger.info(commentIds.get(0) );
+	    //List<Comment> comments = commentRepository.findAllById(commentIds);
+	    //return commentIds;
+	}
 
 	@PostMapping("/articles/comments/post")
 	public Article addCommentByArticle(@RequestBody ArticlePayload payload){

@@ -2,6 +2,7 @@ package com.example.fullstacknewsapp_android;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Message;
@@ -51,6 +52,15 @@ public class NewsMainPageAdapter extends RecyclerView.Adapter<NewsMainPageAdapte
         holder.downloadImage(app.srv, data.get(position).getImage_url());
 
         //then manage the list selection or click events.
+
+        holder.row.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, NewsDetailActivity.class);
+                i.putExtra("id", data.get(position).getId());
+                ((Activity)context).startActivity(i);
+            }
+        });
 
     }
 

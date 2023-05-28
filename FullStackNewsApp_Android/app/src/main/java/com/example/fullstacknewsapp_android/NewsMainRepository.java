@@ -223,6 +223,84 @@ public class NewsMainRepository {
     }
 
 
+    public void getArticleByArticleId(ExecutorService srv, Handler uiHandler, String articleid) {
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("articleid",articleid);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        srv.submit(() -> {
+            try {
+                Log.d("Dev", "Starting network request");
+
+
+                URL url = new URL("http://10.0.2.2:8080/newssystem/articles/getbyid"); // replace with your actual URL
+                Log.d("Dev", "URL created: " + url.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                Log.d("Dev", "Connection opened");
+
+                // Set the request method to POST
+                conn.setRequestMethod("POST");
+
+                // Enable input and output streams
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                // Set the content type of the request body
+                conn.setRequestProperty("Content-Type", "application/json");
+
+                // Create JSON object
+                BufferedOutputStream writer = new BufferedOutputStream(conn.getOutputStream());
+                writer.write(obj.toString().getBytes());
+                writer.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                Log.d("Dev", "Reader created");
+
+                StringBuilder buffer = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+                Log.d("Dev", "Response read");
+
+                JSONObject curr = new JSONObject(buffer.toString());
+                ArticleModel curr_article = new ArticleModel(curr.getString("id")
+                        , curr.getString("title")
+                        , curr.getInt("year")
+                        , (float) curr.getDouble("rating")
+                        , curr.getInt("people_rated")
+                        , curr.getString("content")
+                        , curr.getString("image_url"));
+                Log.d("Dev", "JSON object and article model processed");
+
+
+
+                Message msg = new Message();
+
+                msg.obj = curr_article;
+
+                uiHandler.sendMessage(msg);
+
+                Log.d("Dev", "Message sent to UI handler");
+
+            } catch (MalformedURLException e) {
+                Log.e("Dev", "Malformed URL exception", e);
+            } catch (IOException e) {
+                Log.e("Dev", "IO exception", e);
+            } catch (JSONException e) {
+                Log.e("Dev", "JSON exception", e);
+            }
+        });
+    }
+
+
     public void downloadImage(ExecutorService srv, Handler uiHandler, String path){
 
         srv.submit(()-> {
