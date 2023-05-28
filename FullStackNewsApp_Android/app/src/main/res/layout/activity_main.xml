@@ -35,7 +35,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/idCategory"
+        android:id="@+id/idCategoriesRecyclerView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/idToolbar" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/idArticles"
+        android:id="@+id/idArticlesRecyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="5dp"
@@ -56,7 +56,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idCategory"
+        app:layout_constraintTop_toBottomOf="@+id/idCategoriesRecyclerView"
         app:layout_constraintVertical_bias="1.0"
         tools:listitem="@layout/news" />
 
@@ -64,7 +64,7 @@
         android:id="@+id/idProgressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
