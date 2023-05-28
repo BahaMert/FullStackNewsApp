@@ -133,7 +133,7 @@ public class NewsSystemRestController {
 	}
 	
 	
-	@GetMapping("/articles/search/category")
+	@PostMapping("/articles/search/category")
 	public List<Article> searchArticlesCategory(@RequestBody ArticlePayload payload){
 		
 		List<Article> articles = articleRepository.findAllByCategoryId(payload.getCategoryid());	
