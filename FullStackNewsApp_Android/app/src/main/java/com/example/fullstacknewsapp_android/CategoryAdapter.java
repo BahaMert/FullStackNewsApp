@@ -18,6 +18,10 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.Catego
 
     Context context;
     List<CategoryModel> data;
+
+    public CategoryModel getCategoryAtPosition(int position) {
+        return data.get(position);
+    }
     CategoryClickInterface categoryClickInterface;
 
     public CategoryAdapter(Context context, List<CategoryModel> data, CategoryClickInterface categoryClickInterface) {

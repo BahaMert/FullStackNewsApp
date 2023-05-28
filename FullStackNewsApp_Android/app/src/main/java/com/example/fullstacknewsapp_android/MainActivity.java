@@ -75,6 +75,8 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.C
     @Override
     public void onCategoryClick(int position) {
         prg.setVisibility(View.VISIBLE);
+        String categoryId = ((CategoryAdapter) recViewCat.getAdapter()).getCategoryAtPosition(position).getCategory_id();
+        Log.d("Dev", "Checked category id: " + categoryId);
         repo.get_all_articles(((NewsApplication)getApplication()).srv,artHandler);
     }
 }
