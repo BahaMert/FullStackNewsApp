@@ -34,7 +34,7 @@ public class NewsMainPageAdapter extends RecyclerView.Adapter<NewsMainPageAdapte
     public NewsMainPageHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View root =
-                LayoutInflater.from(context).inflate(R.layout.categories, parent, false);
+                LayoutInflater.from(context).inflate(R.layout.news, parent, false);
         //rootview will become itemview of holder
         NewsMainPageHolder holder = new NewsMainPageHolder(root);
 

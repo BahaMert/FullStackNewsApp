@@ -36,6 +36,17 @@ public class MainActivity extends AppCompatActivity {
             List<CategoryModel> data = (List<CategoryModel>) msg.obj;
             CategoryAdapter adp = new CategoryAdapter(MainActivity.this, data);
             recViewCat.setAdapter(adp);
+            //prg.setVisibility(View.INVISIBLE);
+            return true;
+        }
+    });
+
+    Handler artHandler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message msg) {
+            List<ArticleModel> data = (List<ArticleModel>) msg.obj;
+            NewsMainPageAdapter adp = new NewsMainPageAdapter(MainActivity.this, data);
+            recViewArt.setAdapter(adp);
             prg.setVisibility(View.INVISIBLE);
             return true;
         }
@@ -48,11 +59,13 @@ public class MainActivity extends AppCompatActivity {
         prg = findViewById(R.id.idProgressBar);
         prg.setVisibility(View.VISIBLE);
         recViewCat = findViewById(R.id.idCategoriesRecyclerView);
+        recViewArt = findViewById(R.id.idArticlesRecyclerView);
         //suanlik bunu boyle biraktim cunku layout kisminda ayarlamistim belki acabilirm geri
-        //recViewArt.setLayoutManager(new LinearLayoutManager(this));
+        recViewArt.setLayoutManager(new LinearLayoutManager(this));
 
         NewsMainRepository repo = new NewsMainRepository();
         repo.get_all_categories(((NewsApplication)getApplication()).srv,catHandler);
+        repo.get_all_articles(((NewsApplication)getApplication()).srv,artHandler);
 
 
     }

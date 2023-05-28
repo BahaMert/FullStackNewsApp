@@ -78,47 +78,46 @@ public class NewsMainRepository {
 
     }
 
-    public void get_all_articles(ExecutorService srv, Handler uiHandler){
-        srv.submit(()->{
+    public void get_all_articles(ExecutorService srv, Handler uiHandler) {
+        srv.submit(() -> {
             try {
+                Log.d("Dev", "Starting network request");
 
                 List<ArticleModel> data_categories = new ArrayList<>();
 
-                URL url =
-                        new URL("http://10.0.2.2:8080/newssystem/articles");
+                URL url = new URL("http://10.0.2.2:8080/newssystem/articles");
+                Log.d("Dev", "URL created: " + url.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                Log.d("Dev", "Connection opened");
 
-                BufferedReader reader =
-                        new BufferedReader(
-                                new InputStreamReader(
-                                        conn.getInputStream()));
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                Log.d("Dev", "Reader created");
 
                 StringBuilder buffer = new StringBuilder();
-                String line = "";
+                String line;
 
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line);
                 }
+                Log.d("Dev", "Response read");
 
                 JSONArray arr = new JSONArray(buffer.toString());
-
-                //now i need to construct my operating system objects
+                Log.d("Dev", "JSON array created");
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject curr = arr.getJSONObject(i);
-                    //String id, String title, int year, float rating, int people_rated, String content
-                    //                   , String image_url
                     ArticleModel curr_article = new ArticleModel(curr.getString("id")
                             , curr.getString("title")
                             , curr.getInt("year")
                             , (float) curr.getDouble("rating")
-                            , curr.getInt("people_rate")
+                            , curr.getInt("people_rated")
                             , curr.getString("content")
                             , curr.getString("image_url"));
                     data_categories.add(curr_article);
+                    Log.d("Dev", "Added article: " + curr.getString("title"));
                 }
-                //now i ve got data in my memory i ll just inform my handler.
+                Log.d("Dev", "All articles processed");
 
                 Message msg = new Message();
 
@@ -126,22 +125,18 @@ public class NewsMainRepository {
 
                 uiHandler.sendMessage(msg);
 
-                //now i have to download the images from url
+                Log.d("Dev", "Message sent to UI handler");
 
             } catch (MalformedURLException e) {
-                Log.e("Dev", e.getMessage());
+                Log.e("Dev", "Malformed URL exception", e);
             } catch (IOException e) {
-                Log.e("Dev", e.getMessage());
+                Log.e("Dev", "IO exception", e);
             } catch (JSONException e) {
-                Log.e("Dev", e.getMessage());
+                Log.e("Dev", "JSON exception", e);
             }
-
         });
-
-
-
-
     }
+
 
     public void downloadImage(ExecutorService srv, Handler uiHandler, String path){
 
