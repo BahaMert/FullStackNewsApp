@@ -2,6 +2,7 @@ package com.example.fullstacknewsapp_android;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -51,6 +52,8 @@ public class NewsDetailActivity extends AppCompatActivity {
         txtArticleContent = findViewById(R.id.idArticleContent);
         txtArticleTitle = findViewById(R.id.idArticleTitle);
         id = getIntent().getStringExtra("id");
+        Toolbar toolbar = findViewById(R.id.idToolbarNewsDetail);
+        toolbar.setNavigationOnClickListener(v -> onBackPressed());
 
 
         NewsMainRepository repo = new NewsMainRepository();
