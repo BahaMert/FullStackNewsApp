@@ -32,12 +32,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
-            android:textAlignment="center"
             android:text="Article Title"
-            android:textSize="20dp"
+            android:textAlignment="center"
             android:textColor="#673AB7"
+            android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintTop_toBottomOf="@id/idArticleDetailImageView" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="1dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toTopOf="@+id/idArticleContent"
+            app:layout_constraintTop_toBottomOf="@+id/idArticleTitle">
+
+            <TextView
+                android:id="@+id/idNewsDetailRatingText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start|center"
+                android:layout_weight="1"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/idNewsDetailDateText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|center"
+                android:textAlignment="textEnd"
+                android:layout_weight="1"
+                android:text="TextView" />
+        </LinearLayout>
 
         <TextView
             android:id="@+id/idArticleContent"

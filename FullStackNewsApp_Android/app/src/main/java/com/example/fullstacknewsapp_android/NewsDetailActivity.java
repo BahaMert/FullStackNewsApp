@@ -21,6 +21,8 @@ public class NewsDetailActivity extends AppCompatActivity {
     ImageView imgArticle;
     TextView txtArticleContent;
     TextView txtArticleTitle;
+    TextView txtArticleRaiting;
+    TextView txtArticleDate;
 
     Handler handler = new Handler(new Handler.Callback() {
         @Override
@@ -28,6 +30,8 @@ public class NewsDetailActivity extends AppCompatActivity {
             ArticleModel art = (ArticleModel) msg.obj;
             txtArticleContent.setText(art.getContent());
             txtArticleTitle.setText(art.getTitle());
+            txtArticleRaiting.setText("Rating: " + art.getRating());
+            txtArticleDate.setText(art.getYear());
 
             NewsMainRepository repo = new NewsMainRepository();
 
@@ -54,9 +58,14 @@ public class NewsDetailActivity extends AppCompatActivity {
         imgArticle = findViewById(R.id.idArticleDetailImageView);
         txtArticleContent = findViewById(R.id.idArticleContent);
         txtArticleTitle = findViewById(R.id.idArticleTitle);
+        txtArticleDate = findViewById(R.id.idNewsDetailDateText);
+        txtArticleRaiting = findViewById(R.id.idNewsDetailRatingText);
         id = getIntent().getStringExtra("id");
         Toolbar toolbar = findViewById(R.id.idToolbarNewsDetail);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
+
+        NewsMainRepository repo = new NewsMainRepository();
+        repo.getArticleByArticleId(((NewsApplication)getApplication()).srv, handler, id);
 
         Button button = (Button) findViewById(R.id.idShowCommentsButton);
         button.setOnClickListener(new View.OnClickListener() {
@@ -68,8 +77,6 @@ public class NewsDetailActivity extends AppCompatActivity {
             }
         });
 
-        NewsMainRepository repo = new NewsMainRepository();
-        repo.getArticleByArticleId(((NewsApplication)getApplication()).srv, handler, id);
     }
 
 

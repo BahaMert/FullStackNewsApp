@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -38,6 +39,8 @@ public class CommentsActivity extends AppCompatActivity {
             CommentsAdapter adp = new CommentsAdapter(CommentsActivity.this, data );
             recViewComments.setAdapter(adp);
             //prg.setVisibility(View.INVISIBLE);
+            TextView commentCount = findViewById(R.id.idCommentCountText);
+            commentCount.setText(data.size() + " Comments");
             return true;
         }
     });
