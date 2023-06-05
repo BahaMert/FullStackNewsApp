@@ -24,6 +24,7 @@ public class CommentsActivity extends AppCompatActivity {
 
     RecyclerView recViewComments;
     EditText commentContentTextInput;
+    EditText commenterTextInput;
     NewsMainRepository repo;
 
     Handler commentPostHandler = new Handler(new Handler.Callback() {
@@ -61,6 +62,7 @@ public class CommentsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.idToolbarComments);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
         commentContentTextInput = findViewById(R.id.idCommentTextInput);
+        commenterTextInput = findViewById(R.id.idCommenterTextInput);
 
         repo = new NewsMainRepository();
         repo.getCommentsByArticleId(((NewsApplication)getApplication()).srv,commentHandler, id);
@@ -70,7 +72,8 @@ public class CommentsActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String commentContent = commentContentTextInput.getText().toString();
-                repo.postCommentsByArticleIdAndContent(((NewsApplication)getApplication()).srv, commentPostHandler, id, commentContent);
+                String commenter = commenterTextInput.getText().toString();
+                repo.postCommentsByArticleIdAndContent(((NewsApplication)getApplication()).srv, commentPostHandler, id, commenter, commentContent);
             }
         });
     }

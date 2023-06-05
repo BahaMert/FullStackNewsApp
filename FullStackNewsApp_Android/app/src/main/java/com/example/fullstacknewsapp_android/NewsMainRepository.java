@@ -14,7 +14,6 @@ import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -355,7 +354,7 @@ public class NewsMainRepository {
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject curr = arr.getJSONObject(i);
                     CommentModel curr_comment = new CommentModel(curr.getString("id")
-                            , curr.getString("content"));
+                            , curr.getString("content"), curr.getString("commenter"));
                     data_comments.add(curr_comment);
                 }
                 Log.d("Dev", "All comments processed");
@@ -378,10 +377,11 @@ public class NewsMainRepository {
         });
     }
 
-    public void postCommentsByArticleIdAndContent(ExecutorService srv, Handler uiHandler, String articleid, String content){
+    public void postCommentsByArticleIdAndContent(ExecutorService srv, Handler uiHandler, String articleid, String commenter, String content){
         JSONObject obj = new JSONObject();
         try {
             obj.put("articleid",articleid);
+            obj.put("title", commenter);
             obj.put("content", content);
 
         } catch (JSONException e) {

@@ -9,7 +9,6 @@ import org.springframework.data.mongodb.repository.Query;
 import com.sabanciuniv.model.Article;
 import com.sabanciuniv.model.Author;
 import com.sabanciuniv.model.Category;
-import com.sabanciuniv.model.Comment;
 
 
 public interface ArticleRepository extends MongoRepository<Article, String>{

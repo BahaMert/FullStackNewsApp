@@ -15,6 +15,8 @@ public class Comment {
 	
 	private String content;
 	
+	private String commenter;
+	
 
 	
 
@@ -25,9 +27,10 @@ public class Comment {
 
 
 
-	public Comment(String content) {
+	public Comment(String content, String commenter) {
 		super();
 		this.content = content;
+		this.commenter = commenter;
 	}
 
 
@@ -53,12 +56,18 @@ public class Comment {
 
 
 
-
 	public void setContent(String content) {
 		this.content = content;
 	}
 	
+	public String getCommenter() {
+		return commenter;
+	}
 	
+	public void setCommenter(String commenter) {
+		this.commenter = commenter;
+	}
+
 
 	
 

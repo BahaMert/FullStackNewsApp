@@ -67,9 +67,9 @@ public class NewsSystemRestController {
 			List<Category> categories = categoryRepository.findAll();
 			
 			
-			Comment com1 = new Comment("comment body1");
-			Comment com2 = new Comment("comment body2");
-			Comment com3 = new Comment("comment body3");
+			Comment com1 = new Comment("comment body1", "user1");
+			Comment com2 = new Comment("comment body2", "user2");
+			Comment com3 = new Comment("comment body3", "user3");
 			
 			commentRepository.save(com1);
 			commentRepository.save(com2);
@@ -189,7 +189,7 @@ public class NewsSystemRestController {
 	public Article addCommentByArticle(@RequestBody ArticlePayload payload){
 		
 		Article article = articleRepository.findArticleById(payload.getArticleid());
-	    Comment comment = new Comment(payload.getContent());
+	    Comment comment = new Comment(payload.getContent(), payload.getTitle());
 	    commentRepository.save(comment);
 	    article.getComments().add(comment);
 	    articleRepository.save(article);

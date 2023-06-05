@@ -32,6 +32,7 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     public void onBindViewHolder(@NonNull CommentsViewHolder holder, int position) {
         CommentModel comment = commentModelArrayList.get(position);
         holder.commentBodyTV.setText(comment.getContent());
+        holder.commentTitleTV.setText(comment.getContent());
     }
 
 
@@ -41,10 +42,11 @@ public class CommentsAdapter extends RecyclerView.Adapter<CommentsAdapter.Commen
     }
 
     public class CommentsViewHolder extends RecyclerView.ViewHolder {
-        private TextView commentBodyTV;
+        private TextView commentBodyTV, commentTitleTV;
         public CommentsViewHolder(@NonNull View itemView) {
             super(itemView);
             commentBodyTV = itemView.findViewById(R.id.idCommentBody);
+            commentTitleTV = itemView.findViewById(R.id.idCommentHead);
         }
     }
 }
