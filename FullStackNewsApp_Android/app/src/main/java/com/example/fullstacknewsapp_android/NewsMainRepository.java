@@ -317,7 +317,7 @@ public class NewsMainRepository {
 
                 List<CommentModel> data_comments = new ArrayList<>();
 
-                URL url = new URL("http://localhost:8080/newssystem/articles/comments/get"); // replace with your actual URL
+                URL url = new URL("http://10.0.2.2:8080/newssystem/articles/comments/get"); // replace with your actual URL
                 Log.d("Dev", "URL created: " + url.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -394,7 +394,7 @@ public class NewsMainRepository {
 
                 List<CommentModel> data_comments = new ArrayList<>();
 
-                URL url = new URL("http://localhost:8080/newssystem/articles/comments/get"); // replace with your actual URL
+                URL url = new URL("http://10.0.2.2:8080/newssystem/articles/comments/post"); // replace with your actual URL
                 Log.d("Dev", "URL created: " + url.toString());
 
                 HttpURLConnection conn = (HttpURLConnection) url.openConnection();

@@ -30,8 +30,8 @@ public class NewsDetailActivity extends AppCompatActivity {
             ArticleModel art = (ArticleModel) msg.obj;
             txtArticleContent.setText(art.getContent());
             txtArticleTitle.setText(art.getTitle());
-            txtArticleRaiting.setText("Rating: " + art.getRating());
-            txtArticleDate.setText(art.getYear());
+            txtArticleRaiting.setText("Rating: " + String.valueOf(art.getRating()));
+            txtArticleDate.setText(String.valueOf(art.getYear()));
 
             NewsMainRepository repo = new NewsMainRepository();
 
