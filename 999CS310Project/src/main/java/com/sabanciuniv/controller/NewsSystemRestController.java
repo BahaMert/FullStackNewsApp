@@ -159,7 +159,7 @@ public class NewsSystemRestController {
 		return catSaved;
 	}
 
-	@GetMapping("/articles/comments/get")
+	@PostMapping("/articles/comments/get")
 	public List<Comment> searchArticlesComments(@RequestBody ArticlePayload payload){
 		
 	    Article article = articleRepository.findArticleById(payload.getArticleid());

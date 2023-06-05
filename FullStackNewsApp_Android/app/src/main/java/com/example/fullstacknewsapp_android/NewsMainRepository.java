@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 
+
 public class NewsMainRepository {
 
     public void get_all_categories(ExecutorService srv, Handler uiHandler){
@@ -300,6 +301,159 @@ public class NewsMainRepository {
         });
     }
 
+    public void getCommentsByArticleId(ExecutorService srv, Handler uiHandler, String articleid){
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("articleid",articleid);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        srv.submit(() -> {
+            try {
+                Log.d("Dev", "Starting network request");
+
+                List<CommentModel> data_comments = new ArrayList<>();
+
+                URL url = new URL("http://localhost:8080/newssystem/articles/comments/get"); // replace with your actual URL
+                Log.d("Dev", "URL created: " + url.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                Log.d("Dev", "Connection opened");
+
+                // Set the request method to POST
+                conn.setRequestMethod("POST");
+
+                // Enable input and output streams
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                // Set the content type of the request body
+                conn.setRequestProperty("Content-Type", "application/json");
+
+                // Create JSON object
+                BufferedOutputStream writer = new BufferedOutputStream(conn.getOutputStream());
+                writer.write(obj.toString().getBytes());
+                writer.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                Log.d("Dev", "Reader created");
+
+                StringBuilder buffer = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+                Log.d("Dev", "Response read");
+
+                JSONArray arr = new JSONArray(buffer.toString());
+                Log.d("Dev", "JSON array created");
+
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject curr = arr.getJSONObject(i);
+                    CommentModel curr_comment = new CommentModel(curr.getString("id")
+                            , curr.getString("content"));
+                    data_comments.add(curr_comment);
+                }
+                Log.d("Dev", "All comments processed");
+
+                Message msg = new Message();
+
+                msg.obj = data_comments;
+
+                uiHandler.sendMessage(msg);
+
+                Log.d("Dev", "Message sent to UI handler");
+
+            } catch (MalformedURLException e) {
+                Log.e("Dev", "Malformed URL exception", e);
+            } catch (IOException e) {
+                Log.e("Dev", "IO exception", e);
+            } catch (JSONException e) {
+                Log.e("Dev", "JSON exception", e);
+            }
+        });
+    }
+
+    public void postCommentsByArticleIdAndContent(ExecutorService srv, Handler uiHandler, String articleid, String content){
+        JSONObject obj = new JSONObject();
+        try {
+            obj.put("articleid",articleid);
+            obj.put("content", content);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        srv.submit(() -> {
+            try {
+                Log.d("Dev", "Starting network request");
+
+                List<CommentModel> data_comments = new ArrayList<>();
+
+                URL url = new URL("http://localhost:8080/newssystem/articles/comments/get"); // replace with your actual URL
+                Log.d("Dev", "URL created: " + url.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                Log.d("Dev", "Connection opened");
+
+                // Set the request method to POST
+                conn.setRequestMethod("POST");
+
+                // Enable input and output streams
+                conn.setDoInput(true);
+                conn.setDoOutput(true);
+
+                // Set the content type of the request body
+                conn.setRequestProperty("Content-Type", "application/json");
+
+                // Create JSON object
+                BufferedOutputStream writer = new BufferedOutputStream(conn.getOutputStream());
+                writer.write(obj.toString().getBytes());
+                writer.flush();
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                Log.d("Dev", "Reader created");
+
+                StringBuilder buffer = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+                Log.d("Dev", "Response read");
+
+                /*JSONArray arr = new JSONArray(buffer.toString());
+                Log.d("Dev", "JSON array created");
+
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject curr = arr.getJSONObject(i);
+                    CommentModel curr_comment = new CommentModel(curr.getString("id")
+                            , curr.getString("content"));
+                    data_comments.add(curr_comment);
+                }
+                Log.d("Dev", "All comments processed");
+
+                Message msg = new Message();
+
+                msg.obj = data_comments;
+
+                uiHandler.sendMessage(msg);
+
+                Log.d("Dev", "Message sent to UI handler");*/
+
+            } catch (MalformedURLException e) {
+                Log.e("Dev", "Malformed URL exception", e);
+            } catch (IOException e) {
+                Log.e("Dev", "IO exception", e);
+            }/* catch (JSONException e) {
+                Log.e("Dev", "JSON exception", e);
+            }*/
+        });
+    }
 
     public void downloadImage(ExecutorService srv, Handler uiHandler, String path){
 
