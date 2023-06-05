@@ -61,7 +61,7 @@ public class CommentsActivity extends AppCompatActivity {
         recViewComments = findViewById(R.id.idCommentRecyclerView);
         Toolbar toolbar = findViewById(R.id.idToolbarComments);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());
-        commentContentTextInput = findViewById(R.id.idCommentTextInput);
+        commentContentTextInput = findViewById(R.id.idCommentBodyTextInput);
         commenterTextInput = findViewById(R.id.idCommenterTextInput);
 
         repo = new NewsMainRepository();
