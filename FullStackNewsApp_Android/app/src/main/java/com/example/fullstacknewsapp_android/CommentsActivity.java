@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -30,8 +31,7 @@ public class CommentsActivity extends AppCompatActivity {
     Handler commentPostHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
-            //sonra doldurabiliriz, gerekirse
-            //recreate();
+            //recreate(); buna gerek yok
             Intent intent = new Intent(CommentsActivity.this, CommentsActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("id", id);
@@ -73,6 +73,14 @@ public class CommentsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String commentContent = commentContentTextInput.getText().toString();
                 String commenter = commenterTextInput.getText().toString();
+
+                /*if(commentContent.isEmpty()){
+                    Toast.makeText(CommentsActivity.this, "Your Comment Can Not Be Empty!", Toast.LENGTH_LONG).show();
+                    return;
+                }*/
+                if(commenter.isEmpty()){
+                    commenter = "anonymous";
+                }
                 repo.postCommentsByArticleIdAndContent(((NewsApplication)getApplication()).srv, commentPostHandler, id, commenter, commentContent);
             }
         });

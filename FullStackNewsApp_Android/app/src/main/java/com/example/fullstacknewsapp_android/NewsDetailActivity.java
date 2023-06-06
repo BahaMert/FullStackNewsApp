@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 
@@ -48,12 +49,11 @@ public class NewsDetailActivity extends AppCompatActivity {
     Handler ratingHandler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
-            //sonra doldurabiliriz, gerekirse
+            //gerek yok recreate();'e
             Intent intent = new Intent(NewsDetailActivity.this, NewsDetailActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.putExtra("id", id);
             startActivity(intent);
-            //recreate();
             return true;
         }
     });
