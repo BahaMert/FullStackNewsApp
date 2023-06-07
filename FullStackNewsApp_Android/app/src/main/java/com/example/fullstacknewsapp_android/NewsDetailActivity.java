@@ -25,7 +25,8 @@ public class NewsDetailActivity extends AppCompatActivity {
     ImageView imgArticle;
     TextView txtArticleContent;
     TextView txtArticleTitle;
-    TextView txtArticleRaiting;
+    TextView txtArticleAuthor;
+    TextView txtArticleRating;
     TextView txtArticleDate;
 
     Handler handler = new Handler(new Handler.Callback() {
@@ -34,8 +35,9 @@ public class NewsDetailActivity extends AppCompatActivity {
             ArticleModel art = (ArticleModel) msg.obj;
             txtArticleContent.setText(art.getContent());
             txtArticleTitle.setText(art.getTitle());
+            txtArticleAuthor.setText(art.getAuthorFullName());
             DecimalFormat df = new DecimalFormat("#.##");
-            txtArticleRaiting.setText("Rating: " + String.valueOf(Float.parseFloat(df.format(art.getRating()))));
+            txtArticleRating.setText("Rating: " + String.valueOf(Float.parseFloat(df.format(art.getRating()))));
             txtArticleDate.setText(String.valueOf(art.getYear()));
 
             NewsMainRepository repo = new NewsMainRepository();
@@ -76,7 +78,8 @@ public class NewsDetailActivity extends AppCompatActivity {
         txtArticleContent = findViewById(R.id.idArticleContent);
         txtArticleTitle = findViewById(R.id.idArticleTitle);
         txtArticleDate = findViewById(R.id.idNewsDetailDateText);
-        txtArticleRaiting = findViewById(R.id.idNewsDetailRatingText);
+        txtArticleAuthor = findViewById(R.id.idNewsDetailAuthorText);
+        txtArticleRating = findViewById(R.id.idRatingText);
         id = getIntent().getStringExtra("id");
         Toolbar toolbar = findViewById(R.id.idToolbarNewsDetail);
         toolbar.setNavigationOnClickListener(v -> onBackPressed());

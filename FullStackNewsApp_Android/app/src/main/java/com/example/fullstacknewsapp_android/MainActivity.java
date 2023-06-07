@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -68,7 +70,14 @@ public class MainActivity extends AppCompatActivity implements CategoryAdapter.C
         repo.get_all_categories(((NewsApplication)getApplication()).srv,catHandler);
         repo.get_all_articles(((NewsApplication)getApplication()).srv,artHandler);
 
-
+        Button button = (Button) findViewById(R.id.idViewAuthors);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, AuthorsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 

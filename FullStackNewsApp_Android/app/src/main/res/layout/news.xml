@@ -15,26 +15,38 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:id="@+id/idNewsAuthorTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idNewsImageView"
+            android:padding="5dp"
+            android:text="Author" />
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:id="@+id/idNewsImageView"
             android:scaleType="centerCrop"
             />
+
         <TextView
+            android:id="@+id/idNewsTextViewHeading"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/idNewsTextViewHeading"
-            android:layout_below="@id/idNewsImageView"
-            android:textColor="@color/black"
-            android:text="News Heading"
+            android:layout_below="@id/idNewsAuthorTextView"
+            android:layout_marginStart="3dp"
+            android:layout_marginTop="3dp"
+            android:layout_marginEnd="3dp"
+            android:layout_marginBottom="3dp"
             android:gravity="center"
-            android:textStyle="bold"
-            android:textSize="18sp"
-            android:padding="3dp"
             android:maxLines="2"
-            android:layout_margin="3dp"
-            />
+            android:padding="3dp"
+            android:text="News Heading"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 

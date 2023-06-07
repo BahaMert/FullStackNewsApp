@@ -10,7 +10,7 @@ public class ArticleModel {
     private int people_rated;
     private String content;
 
-
+    private String authorFullName;
     private String image_url;
 
     public ArticleModel() {
@@ -23,7 +23,7 @@ public class ArticleModel {
 
 
     public ArticleModel(String id, String title, int year, float rating, int people_rated, String content
-                   , String image_url) {
+                   , String image_url, String authorFullName) {
         super();
         this.id = id;
         this.title = title;
@@ -32,10 +32,18 @@ public class ArticleModel {
         this.people_rated = people_rated;
         this.content = content;
         this.image_url = image_url;
+        this.authorFullName = authorFullName;
     }
 
 
+    public String getAuthorFullName() {
+        return authorFullName;
+    }
 
+
+    public void setAuthorFullName(String authorFullName) {
+        this.authorFullName = authorFullName;
+    }
 
 
 

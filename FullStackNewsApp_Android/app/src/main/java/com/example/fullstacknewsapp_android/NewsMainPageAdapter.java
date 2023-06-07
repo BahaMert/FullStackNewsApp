@@ -47,6 +47,7 @@ public class NewsMainPageAdapter extends RecyclerView.Adapter<NewsMainPageAdapte
     @Override
     public void onBindViewHolder(@NonNull NewsMainPageHolder holder, int position) {
         holder.txtName.setText(data.get(position).getTitle());
+        holder.txtAuthorName.setText(data.get(position).getAuthorFullName());
 
         NewsApplication app = (NewsApplication) ((Activity) context).getApplication();
         holder.downloadImage(app.srv, data.get(position).getImage_url());
@@ -72,6 +73,7 @@ public class NewsMainPageAdapter extends RecyclerView.Adapter<NewsMainPageAdapte
     class NewsMainPageHolder extends RecyclerView.ViewHolder{
         ConstraintLayout row;
         TextView txtName;
+        TextView txtAuthorName;
         ImageView imgView;
 
         boolean image_downloaded;
@@ -91,7 +93,7 @@ public class NewsMainPageAdapter extends RecyclerView.Adapter<NewsMainPageAdapte
             row = itemView.findViewById(R.id.idNews_Column_list);
             txtName = itemView.findViewById(R.id.idNewsTextViewHeading);
             imgView = itemView.findViewById(R.id.idNewsImageView);
-
+            txtAuthorName = itemView.findViewById(R.id.idNewsAuthorTextView);
 
         }
 

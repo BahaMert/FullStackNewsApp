@@ -109,15 +109,72 @@ public class NewsMainRepository {
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject curr = arr.getJSONObject(i);
+                    JSONObject author = new JSONObject(curr.getString("author"));
                     ArticleModel curr_article = new ArticleModel(curr.getString("id")
                             , curr.getString("title")
                             , curr.getInt("year")
                             , (float) curr.getDouble("rating")
                             , curr.getInt("people_rated")
                             , curr.getString("content")
-                            , curr.getString("image_url"));
+                            , curr.getString("image_url")
+                            ,author.getString("name") + " " + author.getString("lastName"));
                     data_categories.add(curr_article);
                     Log.d("Dev", "Added article: " + curr.getString("title"));
+                }
+                Log.d("Dev", "All articles processed");
+
+                Message msg = new Message();
+
+                msg.obj = data_categories;
+
+                uiHandler.sendMessage(msg);
+
+                Log.d("Dev", "Message sent to UI handler");
+
+            } catch (MalformedURLException e) {
+                Log.e("Dev", "Malformed URL exception", e);
+            } catch (IOException e) {
+                Log.e("Dev", "IO exception", e);
+            } catch (JSONException e) {
+                Log.e("Dev", "JSON exception", e);
+            }
+        });
+    }
+
+    public void get_all_authors(ExecutorService srv, Handler uiHandler) {
+        srv.submit(() -> {
+            try {
+                Log.d("Dev", "Starting network request");
+
+                List<AuthorsModel> data_categories = new ArrayList<>();
+
+                URL url = new URL("http://10.0.2.2:8080/newssystem/authors");
+                Log.d("Dev", "URL created: " + url.toString());
+
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                Log.d("Dev", "Connection opened");
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                Log.d("Dev", "Reader created");
+
+                StringBuilder buffer = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    buffer.append(line);
+                }
+                Log.d("Dev", "Response read");
+
+                JSONArray arr = new JSONArray(buffer.toString());
+                Log.d("Dev", "JSON array created");
+
+                for (int i = 0; i < arr.length(); i++) {
+                    JSONObject curr = arr.getJSONObject(i);
+                    AuthorsModel curr_author = new AuthorsModel(curr.getString("id")
+                            , curr.getString("name")
+                            , curr.getString("lastName"));
+                    data_categories.add(curr_author);
+                    Log.d("Dev", "Added article: " + curr.getString("name"));
                 }
                 Log.d("Dev", "All articles processed");
 
@@ -192,13 +249,15 @@ public class NewsMainRepository {
 
                 for (int i = 0; i < arr.length(); i++) {
                     JSONObject curr = arr.getJSONObject(i);
+                    JSONObject author = new JSONObject(curr.getString("author"));
                     ArticleModel curr_article = new ArticleModel(curr.getString("id")
                             , curr.getString("title")
                             , curr.getInt("year")
                             , (float) curr.getDouble("rating")
                             , curr.getInt("people_rated")
                             , curr.getString("content")
-                            , curr.getString("image_url"));
+                            , curr.getString("image_url")
+                            ,author.getString("name") +  " " + author.getString("lastName"));
                     data_categories.add(curr_article);
                     Log.d("Dev", "Added article: " + curr.getString("title"));
                 }
@@ -271,13 +330,15 @@ public class NewsMainRepository {
                 Log.d("Dev", "Response read");
 
                 JSONObject curr = new JSONObject(buffer.toString());
+                JSONObject author = new JSONObject(curr.getString("author"));
                 ArticleModel curr_article = new ArticleModel(curr.getString("id")
                         , curr.getString("title")
                         , curr.getInt("year")
                         , (float) curr.getDouble("rating")
                         , curr.getInt("people_rated")
                         , curr.getString("content")
-                        , curr.getString("image_url"));
+                        , curr.getString("image_url")
+                        ,author.getString("name") + " " + author.getString("lastName"));
                 Log.d("Dev", "JSON object and article model processed");
 
 
