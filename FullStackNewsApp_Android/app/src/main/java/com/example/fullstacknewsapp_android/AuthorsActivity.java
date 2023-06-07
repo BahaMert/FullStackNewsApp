@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,7 +26,19 @@ public class AuthorsActivity extends AppCompatActivity {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
             List<AuthorsModel> data = (List<AuthorsModel>) msg.obj;
-            AuthorAdapter adp = new AuthorAdapter(data, AuthorsActivity.this);
+            AuthorAdapter adp = new AuthorAdapter(data, AuthorsActivity.this, new AuthorAdapter.AuthorClickInterface() {
+                @Override
+                public void onAuthorClick(int position) {
+                    AuthorsModel author = ((AuthorAdapter) recViewAuthors.getAdapter()).getAuthorAtPosition(position);
+                    String id = author.getId();
+                    String authorName = author.getFirstName() + " " + author.getLastName();
+
+                    Intent intent = new Intent(AuthorsActivity.this, AuthorsArticlesActivity.class);
+                    intent.putExtra("id", id);
+                    intent.putExtra("name", authorName);
+                    startActivity(intent);
+                }
+            });
             recViewAuthors.setAdapter(adp);
             //prg.setVisibility(View.INVISIBLE);
             TextView commentCount = findViewById(R.id.idAuthorCountText);

@@ -18,9 +18,15 @@ public class AuthorAdapter extends RecyclerView.Adapter<AuthorAdapter.AuthorView
     private List<AuthorsModel> authorsList;
     private Context context;
 
-    public AuthorAdapter(List<AuthorsModel> authorsList, Context context) {
+    public AuthorsModel getAuthorAtPosition(int position) {
+        return authorsList.get(position);
+    }
+
+    AuthorAdapter.AuthorClickInterface authorClickInterface;
+    public AuthorAdapter(List<AuthorsModel> authorsList, Context context, AuthorClickInterface authorClickInterface) {
         this.authorsList = authorsList;
         this.context = context;
+        this.authorClickInterface = authorClickInterface;
     }
 
     @NonNull
@@ -35,8 +41,17 @@ public class AuthorAdapter extends RecyclerView.Adapter<AuthorAdapter.AuthorView
     public void onBindViewHolder(@NonNull AuthorAdapter.AuthorViewHolder holder, int position) {
         AuthorsModel author = authorsList.get(position);
         holder.authorFullNameTextView.setText(String.format("%s %s", author.getFirstName(), author.getLastName()));
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                authorClickInterface.onAuthorClick(position);
+            }
+        });
     }
 
+    public interface AuthorClickInterface{
+        void onAuthorClick(int position);
+    }
     @Override
     public int getItemCount() {
         return authorsList.size();
